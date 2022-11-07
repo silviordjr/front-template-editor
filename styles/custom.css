@@ -1,0 +1,49 @@
+@config "../tailwind.config.js";
+
+@tailwind base;
+
+@tailwind components;
+
+@tailwind utilities;
+
+blockquote,
+dl,
+dd,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+hr,
+figure,
+p,
+pre {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.nav-item {
+  display: inline-block;
+  position: relative;
+}
+
+.nav-item:after {
+  content: "";
+  display: block;
+  height: 2px;
+  width: 0px;
+  background: black;
+  margin-top: 4px;
+  transition: 0.3s;
+  position: absolute;
+}
+
+.nav-item:hover:after {
+  width: 100%;
+}
+
+.nav-item-active:after {
+  width: 100%;
+}
