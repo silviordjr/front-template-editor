@@ -4,7 +4,7 @@ import Image from "next/image";
 import logoCasal from '../img/casal_logo.png'
 import { useState } from 'react';
 
-const navigationRoutes = ["home", "create", "signup", "users"];
+const navigationRoutes = ["home", "signup", "users"];
 
 export default function Header () {
   const router = useRouter();
@@ -25,16 +25,13 @@ export default function Header () {
     if (singleRoute === 'home') {
       nameOnHeader = "Página Inicial"
     }
-    if (singleRoute === 'create') {
-      nameOnHeader = "Criar Arquivo"
-    }
 
     if(singleRoute === 'signup'){
       nameOnHeader = "Criar Usuário"
     }
 
     if (singleRoute === 'users') {
-      nameOnHeader = 'Usuários'
+      nameOnHeader = 'Buscar Usuários'
     }
 
     return (

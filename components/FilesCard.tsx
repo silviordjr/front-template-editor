@@ -4,9 +4,10 @@ import Image from "next/image";
 export default function FilesCard (props:any){
     
     const renderFiles = props.files.map((file: any) => {
+        const token = localStorage.getItem('token')
         return (
           <>
-            <a href={`${process.env.NEXT_PUBLIC_SERVER_BASE_URL}/download/${file.id}`} target="_blank" rel="noreferrer">
+            <a href={`${process.env.NEXT_PUBLIC_SERVER_BASE_URL}/download/${file.id}/${token}`} target="_blank" rel="noreferrer">
             <div className="flex items-center justify-start mb-2 cursor-pointer hover:text-blue-700">
                 <Image 
                     src={word}
