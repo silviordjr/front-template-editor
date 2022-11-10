@@ -32,7 +32,13 @@ export default function Header () {
   const router = useRouter();
   const [isActiveResponsiveMenu, setIsActiveResponsiveMenu] = useState(false);
   const [userInfo, setUserInfo] = useState<any>({})
-  const token = localStorage.getItem('token')?.toString()
+  let token: string | undefined
+
+  if (typeof window !== 'undefined'){
+    token = localStorage.getItem('token')?.toString()
+  } else {
+    token = ''
+  }
 
   const changeResponsiveMenuStatus = () => {
     setIsActiveResponsiveMenu(!isActiveResponsiveMenu);
