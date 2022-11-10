@@ -4,7 +4,7 @@ import Image from "next/image";
 import logoCasal from '../img/casal_logo.png'
 import { useState } from 'react';
 
-const navigationRoutes = ["home", "signup", "users"];
+const navigationRoutes = ["home", "signup", "users", "signout"];
 
 export default function Header () {
   const router = useRouter();
@@ -17,6 +17,11 @@ export default function Header () {
 
   const closeResponsiveMenu = () => {
     setIsActiveResponsiveMenu(false)
+  }
+
+  const signout = () => {
+    localStorage.removeItem('token')
+    router.push('/login')
   }
 
   const navigation = navigationRoutes.map((singleRoute) => {
@@ -32,6 +37,17 @@ export default function Header () {
 
     if (singleRoute === 'users') {
       nameOnHeader = 'Buscar Usuários'
+    }
+
+    if (singleRoute === 'signout') {
+      nameOnHeader = 'Sair'
+      return(
+        <>
+          <div key={singleRoute} className={`nav-item ml-8 cursor-pointer`} onClick={() => signout()}>
+            {nameOnHeader}
+          </div>
+        </>
+      )
     }
 
     return (

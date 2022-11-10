@@ -2,14 +2,18 @@ import useForm from "../hooks/useForm"
 import { useState } from 'react';
 import word from '../img/word_icon.png'
 import Image from "next/image";
+import Papa from 'papaparse'
+import csvLogo from '../img/csv.png'
 
 
 export default function ExampleForm (props: any) {
     const [created, setCreated] = useState(false)
     const [file, setFile] = useState<any>({})
+    const [csvFile, setCsvFile] = useState<any>()
     const token = localStorage.getItem('token')
+    const fileReader = new FileReader()
 
-    const [form, onchange, clear] = useForm({
+    const [form, onchange, clear, setNew] = useForm({
         first_name: '',
         last_name: '',
         phone: '',
@@ -45,39 +49,74 @@ export default function ExampleForm (props: any) {
         }
     }
 
+    const handleChangeCsv = (e: any) => {
+        setCsvFile(e.target.files[0])
+    }
+
+    const onSubmitCsv = (e: any) => {
+        e.preventDefault()
+
+        Papa.parse(csvFile, {
+            header: true,
+            skipEmptyLines: true,
+            complete: function (results: any){
+                setNew(results.data[0])
+            }
+        })
+    }
+
     return (
         <>
         { !created ?
-        <form onSubmit={onSubmitForm} className="ml-4 mt-8 flex flex-wrap gap-8">
-            <div className="flex items-center justify-center">
-                <label htmlFor="first_name" className="font-mono text-md font-light">Primeiro Nome: </label>
-                <input type="text" name="first_name" id="first_name" value={form.first_name} onChange={onchange} className='bg-gray-200 w-44 h-6 rounded-lg ml-4' required />
-            </div>
+        <>
+            <form className="w-full flex items-center justify-between ml-4 mt-8 py-8 gap-8 border-y-2" onSubmit={onSubmitCsv}>
+                <button className="bg-gray-200 hover:bg-gray-400 font-mono text-md font-light py-2 px-4 rounded-lg">↓ Importar Modelo</button>
+                <label htmlFor="upload_csv" className="cursor-pointer bg-gray-200 hover:bg-gray-400 font-mono text-md font-light py-2 px-4 rounded-lg flex items-center justify-center">
+                    <Image 
+                        src={csvLogo}
+                        alt={'Logo CSV'}
+                        layout="fixed"
+                        unoptimized={true}
+                        height='50'
+                        width='50'
+                        className=""
+                    />
+                    Enviar Arquivo
+                </label>
+                <input type="file" name="upload_csv" id="upload_csv" accept=".csv" onChange={handleChangeCsv} className="hidden"  />
+                <button className="bg-gray-200 hover:bg-gray-400 font-mono text-md font-light py-2 px-4 rounded-lg" type='submit'>↑ Exportar</button>
+            </form>
+            <form onSubmit={onSubmitForm} className="ml-4 mt-8 flex flex-wrap gap-8">
+                <div className="flex items-center justify-center">
+                    <label htmlFor="first_name" className="font-mono text-md font-light">Primeiro Nome: </label>
+                    <input type="text" name="first_name" id="first_name" value={form.first_name} onChange={onchange} className='bg-gray-200 w-44 h-6 rounded-lg ml-4' required />
+                </div>
 
-            <div className="flex items-center justify-center">
-                <label htmlFor="last_name" className="font-mono text-md font-light">Ultimo Nome: </label>
-                <input type="text" name="last_name" id="last_name" value={form.last_name} onChange={onchange} className='bg-gray-200 w-44 h-6 rounded-lg ml-4' required />
-            </div>
+                <div className="flex items-center justify-center">
+                    <label htmlFor="last_name" className="font-mono text-md font-light">Ultimo Nome: </label>
+                    <input type="text" name="last_name" id="last_name" value={form.last_name} onChange={onchange} className='bg-gray-200 w-44 h-6 rounded-lg ml-4' required />
+                </div>
 
-            <div className="flex items-center justify-center">
-                <label htmlFor="phone" className="font-mono text-md font-light">Telefone: </label>
-                <input type="tel" name="phone" id="phone" value={form.phone} onChange={onchange} className='bg-gray-200 w-44 h-6 rounded-lg ml-4' required />
-            </div>
+                <div className="flex items-center justify-center">
+                    <label htmlFor="phone" className="font-mono text-md font-light">Telefone: </label>
+                    <input type="tel" name="phone" id="phone" value={form.phone} onChange={onchange} className='bg-gray-200 w-44 h-6 rounded-lg ml-4' required />
+                </div>
 
-            <div className="flex items-center justify-center w-full">
-                <label htmlFor="departament" className="font-mono text-md font-light">Departamento: </label>
-                <input type="tel" name="departament" id="departament" value={form.departament} onChange={onchange} className='bg-gray-200 w-full h-6 rounded-lg ml-4' required />
-            </div>
+                <div className="flex items-center justify-center w-full">
+                    <label htmlFor="departament" className="font-mono text-md font-light">Departamento: </label>
+                    <input type="tel" name="departament" id="departament" value={form.departament} onChange={onchange} className='bg-gray-200 w-full h-6 rounded-lg ml-4' required />
+                </div>
 
-            <div className="flex items-center justify-center">
-                <label htmlFor="description" className="font-mono text-md font-light">Descrição: </label>
-                <textarea name="description" id="description" value={form.description} onChange={onchange} className='bg-gray-200 rounded-lg ml-4' rows={4} cols={100} required />
-            </div>
+                <div className="flex items-center justify-center">
+                    <label htmlFor="description" className="font-mono text-md font-light">Descrição: </label>
+                    <textarea name="description" id="description" value={form.description} onChange={onchange} className='bg-gray-200 rounded-lg ml-4' rows={4} cols={100} required />
+                </div>
 
-            <div className="w-full flex items-center justify-center">
-                <button className="bg-gray-200 hover:bg-gray-400 font-mono text-md font-light py-4 px-8 rounded-lg" type='submit'>Enviar</button>
-            </div>
-        </form>
+                <div className="w-full flex items-center justify-center">
+                    <button className="bg-gray-200 hover:bg-gray-400 font-mono text-md font-light py-4 px-8 rounded-lg" type='submit'>Enviar</button>
+                </div>
+            </form>
+        </>
         :
         <div className="flex flex-col items-center justify-center ml-4 mt-8 gap-8 w-full">
             <h1 className='text-2xl font-mono antialiased font-semibold ml-4'>Tudo certo com seu arquivo!</h1>

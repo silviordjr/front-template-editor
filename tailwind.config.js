@@ -5,6 +5,7 @@ module.exports = {
       './pages/*.tsx',
       './components/**/*.{ts,tsx}',
       './components/*.tsx',
+      './forms/*.tsx'
     ],
     darkMode: 'media',
     theme: {
