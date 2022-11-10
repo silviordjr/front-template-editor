@@ -16,6 +16,7 @@ export default function Home() {
   const [model, setModel] = useState('')
   const [fileName, setFileName] = useState('')
   const [protectedFile, setProtectedFile] = useState(false)
+  const [count, setCount] = useState()
 
   useEffect(() => {
     const token = localStorage.getItem('token')?.toString()
@@ -37,6 +38,7 @@ export default function Home() {
       const filesData = await fetch(`${baseUrl}/files/${user.id}`, content)
       const files = await filesData.json()
 
+      setCount(files.count[0]['count(`id`)'])
       setFiles(files.files)
       setUserInfo(user)
     }
@@ -81,7 +83,7 @@ export default function Home() {
       <main className="px-4 lg:px-0 max-w-screen-xl mx-auto my-10 min-h-screen flex items-start justify-between gap-8">
         <div className='flex flex-col items-start justify-start gap-y-8 w-2/5'>
         <UserCard user={userInfo} />
-        <FilesCard user={userInfo} files={files} />
+        <FilesCard user={userInfo} files={files} count={count} />
         </div>
         <div className='w-full h-screen border-l-2 flex flex-col items-start'>
           <h1 className='text-2xl font-mono antialiased font-semibold ml-4'>Escolha o modelo e crie seu arquivo.</h1>
