@@ -69,8 +69,10 @@ export default function ExampleForm (props: any) {
         <>
         { !created ?
         <>
-            <form className="w-full flex items-center justify-between ml-4 mt-8 py-8 gap-8 border-y-2" onSubmit={onSubmitCsv}>
-                <button className="bg-gray-200 hover:bg-gray-400 font-mono text-md font-light py-2 px-4 rounded-lg">↓ Importar Modelo</button>
+            <div className="w-full flex items-center justify-between ml-4 mt-8 py-8 gap-8 border-y-2" onSubmit={onSubmitCsv}>
+                <a href={`${process.env.NEXT_PUBLIC_SERVER_BASE_URL}/models/download/${props.model}/${token}`} target="_blank" rel="noreferrer">
+                    <div className="bg-gray-200 hover:bg-gray-400 font-mono text-md font-light py-2 px-4 rounded-lg cursor-pointer">↓ Importar Modelo</div>
+                </a>
                 <label htmlFor="upload_csv" className="cursor-pointer bg-gray-200 hover:bg-gray-400 font-mono text-md font-light py-2 px-4 rounded-lg flex items-center justify-center">
                     <Image 
                         src={csvLogo}
@@ -83,9 +85,11 @@ export default function ExampleForm (props: any) {
                     />
                     Enviar Arquivo
                 </label>
-                <input type="file" name="upload_csv" id="upload_csv" accept=".csv" onChange={handleChangeCsv} className="hidden"  />
-                <button className="bg-gray-200 hover:bg-gray-400 font-mono text-md font-light py-2 px-4 rounded-lg" type='submit'>↑ Exportar</button>
-            </form>
+                <form onSubmit={onSubmitCsv}>
+                    <input type="file" name="upload_csv" id="upload_csv" accept=".csv" onChange={handleChangeCsv} className="hidden"  />
+                    <button className="bg-gray-200 hover:bg-gray-400 font-mono text-md font-light py-2 px-4 rounded-lg" type='submit'>↑ Exportar</button>
+                </form>
+            </div>
             <form onSubmit={onSubmitForm} className="ml-4 mt-8 flex flex-wrap gap-8">
                 <div className="flex items-center justify-center">
                     <label htmlFor="first_name" className="font-mono text-md font-light">Primeiro Nome: </label>
