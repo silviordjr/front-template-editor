@@ -57,6 +57,8 @@ export default function Header () {
     getUserRole(token)
     .then((res) => {
       setUserInfo(res.role)
+    }).catch((err) => {
+      console.log(err)
     })
   }, [token])
 
@@ -146,7 +148,7 @@ function NavigationLink (props: any) {
   const isActive = router.asPath === (href === "/home" ? "/" : href);
 
   return (
-    <Link href={href === "/home" ? "/" : href} className={`${isActive && "nav-item-active"} nav-item ml-8`} passHref>
+    <Link href={href === "/home" ? "/" : href} className={`${isActive && "nav-item-active"} nav-item ml-8`} key={href} passHref>
       
           {text}
     </Link>
