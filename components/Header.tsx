@@ -2,14 +2,37 @@ import { useRouter } from "next/dist/client/router";
 import Link from "next/link";
 import Image from "next/image";
 import logoCasal from '../img/casal_logo.png'
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
-const navigationRoutes = ["home", "signup", "users", "signout"];
+// const navigationRoutes = ["home", "signup", "users", "signout"];
+
+const getUserRole = async (token: string | undefined) => {
+  if (typeof token === 'undefined'){
+    return {
+        role: false
+    }
+  }
+
+  const content = {
+    headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'Authorization': `${token}`
+    },
+    method: 'GET',
+  }
+
+  const data = await fetch(`${process.env.NEXT_PUBLIC_SERVER_BASE_URL}/token`, content)
+  const response = await data.json()
+
+  return response
+} 
 
 export default function Header () {
   const router = useRouter();
   const [isActiveResponsiveMenu, setIsActiveResponsiveMenu] = useState(false);
-  
+  const [userInfo, setUserInfo] = useState<any>({})
+  const token = localStorage.getItem('token')?.toString()
 
   const changeResponsiveMenuStatus = () => {
     setIsActiveResponsiveMenu(!isActiveResponsiveMenu);
@@ -23,6 +46,22 @@ export default function Header () {
     localStorage.removeItem('token')
     router.push('/login')
   }
+
+  useEffect(() => {
+    getUserRole(token)
+    .then((res) => {
+      setUserInfo(res.role)
+    })
+  }, [token])
+
+  let navigationRoutes
+
+  if (userInfo === "ADMIN"){
+    navigationRoutes = ["home", "signup", "users", "signout"];
+  } else {
+    navigationRoutes = ["home", "users", "signout"];
+  }
+
 
   const navigation = navigationRoutes.map((singleRoute) => {
     let nameOnHeader = ''
