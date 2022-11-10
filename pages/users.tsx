@@ -33,11 +33,15 @@ export default function Users () {
     const [users, setUsers] = useState<any[]>([])
     const [page, setPage] = useState(1)
     const [form, onchange, clear] = useForm({name: ''})
+    const [count, setCount] = useState(9)
+
+    const pages = Math.ceil(count / 9)
 
     useEffect(() => {
         getUsers()
         .then((response) => {
-            setUsers(response)
+            setUsers(response.users)
+            setCount(response.count[0]['count(`id`)'])
         })
         .catch((err) => {
             console.log(err)
@@ -56,12 +60,106 @@ export default function Users () {
         )
     }) 
 
+    const getOtherPage = async (otherPage: number) => {
+        const token = localStorage.getItem('token')?.toString()
+
+        const content = {
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': `${token}`
+        },
+        method: 'GET',
+        }
+
+        const data = await fetch(`${process.env.NEXT_PUBLIC_SERVER_BASE_URL}/users?page=${otherPage}`, content)
+        const response = await data.json()
+
+        console.log(response.users)
+        setPage(otherPage)
+        setUsers(response.users)
+    }
+
+    const renderPagesNav = () => {
+        const pages = Math.ceil(count / 9)
+
+        if (pages <= 1){
+            return (
+                <></>
+            )
+        } else if (pages <= 5){
+            const showInNav = []
+
+            for (let i = 1; i <= pages; i++){
+                showInNav.push(i)
+            }
+
+            const displayElements = showInNav.map((element) => {
+                return(
+                    <>
+                        <p className='cursor-pointer hover:text-blue-700' onClick={() => getOtherPage(element)}>{element}</p>
+                    </>
+                )
+            })
+
+            return(
+                <>
+                    <div className='flex items-center justify-center gap-2'>
+                        {displayElements}
+                    </div>
+                </>
+            )
+        } else {
+            let showInNav: any[] = []
+
+            if (page === 1){
+                showInNav = []
+            } else {
+                showInNav = ['...', `${page - 1}`]
+            }
+
+            for (let i = page; showInNav.length <= 5; i++){
+                if (showInNav.length === 4){
+                    showInNav.push('...')
+                } else {
+                    showInNav.push(i)
+                }
+            }
+
+            const displayElements = showInNav.map((element) => {
+                if (element !== '...'){
+                    return(
+                        <>
+                            <p className='cursor-pointer hover:text-blue-700' onClick={() => getOtherPage(element)}>{element}</p>
+                        </>
+                    )
+                } else {
+                    return(
+                        <>
+                            <p className='cursor-pointer hover:text-blue-700'>{element}</p>
+                        </>
+                    )
+                }
+            })
+
+            return(
+                <>
+                    <div className='flex items-center justify-center gap-2'>
+                        {displayElements}
+                    </div>
+                </>
+            )
+        }
+
+
+    }
+
     const onSubmitSearch = async (e: any) => {
         e.preventDefault()
 
         const users = await getUsers(page, form.name)
 
-        setUsers(users)
+        setUsers(users.users)
     }
     return (
         <>
@@ -75,8 +173,37 @@ export default function Users () {
                     <label htmlFor="name" className="font-mono text-md font-light">Busque por nome: </label>
                     <input type="text" name="name" id="name" placeholder='Nome...' value={form.name} onChange={onchange} className='bg-gray-200 w-44 h-6 rounded-lg ml-4' />
                 </form>
-                <div className='flex flex-wrap items-start justify-between gap-8'>
-                    {users && renderUsers}
+                <div className='flex flex-col items-center justify-center'>
+                    <div className='flex flex-wrap items-start justify-between gap-8'>
+                        {users && renderUsers}
+                    </div>
+                    <div className='grid grid-cols-4 gap-4 mt-4'>
+                {page - 1 > 0 ?
+                <div className='flex flex-col items-center justify-center cursor-pointer hover:text-blue-700' onClick={() => getOtherPage(page - 1)}>
+                    <p>←</p>
+                    <p className="font-mono text-xs font-light">Anterior</p>
+                </div>
+                :
+                <div className='flex flex-col items-center justify-center opacity-30 cursor-not-allowed'>
+                    <p>←</p>
+                    <p className="font-mono text-xs font-light">Anterior</p>
+                </div>
+                }
+                <div className='col-start-2 col-end-4'>
+                    {renderPagesNav()}
+                </div>
+                {page < pages ?
+                <div className='flex flex-col items-center justify-center cursor-pointer hover:text-blue-700' onClick={() => getOtherPage(page + 1)}>
+                    <p>→</p>
+                    <p className="font-mono text-xs font-light">Próximo</p>
+                </div>
+                :
+                <div className='flex flex-col items-center justify-center opacity-30 cursor-not-allowed'>
+                    <p>→</p>
+                    <p className="font-mono text-xs font-light">Próximo</p>
+                </div>
+                }
+            </div>
                 </div>
             </main>
         </>

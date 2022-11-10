@@ -171,9 +171,9 @@ export default function FilesCard (props:any){
                 </div>
                 :
                 <div className='flex flex-col items-center justify-center opacity-30 cursor-not-allowed'>
-                <p>→</p>
-                <p className="font-mono text-xs font-light">Próximo</p>
-            </div>
+                    <p>→</p>
+                    <p className="font-mono text-xs font-light">Próximo</p>
+                </div>
                 }
             </div>
             </div>
