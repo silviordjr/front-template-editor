@@ -82,7 +82,7 @@ export default function Home() {
       </Head>
       <main className="px-4 lg:px-0 max-w-screen-xl mx-auto my-10 min-h-screen flex flex-col-reverse items-center justify-center lg:flex-row lg:items-start lg:justify-between gap-8">
         <div className='flex flex-col items-start justify-start gap-y-8 w-full lg:w-2/5'>
-        <UserCard user={userInfo} />
+        <UserCard user={userInfo} current={true} />
         <FilesCard user={userInfo} files={files} count={count} />
         </div>
         <div className='w-screen lg:w-full h-fit lg:h-screen border-l-2 flex flex-col items-center'>
