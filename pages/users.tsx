@@ -74,8 +74,7 @@ export default function Users () {
 
         const data = await fetch(`${process.env.NEXT_PUBLIC_SERVER_BASE_URL}/users?page=${otherPage}`, content)
         const response = await data.json()
-
-        console.log(response.users)
+        
         setPage(otherPage)
         setUsers(response.users)
     }
@@ -173,8 +172,8 @@ export default function Users () {
                     <label htmlFor="name" className="font-mono text-md font-light">Busque por nome: </label>
                     <input type="text" name="name" id="name" placeholder='Nome...' value={form.name} onChange={onchange} className='bg-gray-200 w-44 h-6 rounded-lg ml-4' />
                 </form>
-                <div className='flex flex-col items-center justify-center'>
-                    <div className='flex flex-wrap items-start justify-between gap-8'>
+                <div className='flex flex-col items-center justify-center w-full'>
+                    <div className='flex flex-wrap items-start justify-between gap-8 w-full'>
                         {users && renderUsers}
                     </div>
                     <div className='grid grid-cols-4 gap-4 mt-4'>
