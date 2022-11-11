@@ -69,11 +69,14 @@ export default function ExampleForm (props: any) {
         <>
         { !created ?
         <>
-            <div className="w-full flex items-center justify-between ml-4 mt-8 py-8 gap-8 border-y-2" onSubmit={onSubmitCsv}>
+            <div className="w-full flex items-center justify-between lg:ml-4 mt-8 py-8 gap-4 lg:gap-8 border-y-2 px-4 lg:px-0" onSubmit={onSubmitCsv}>
                 <a href={`${process.env.NEXT_PUBLIC_SERVER_BASE_URL}/models/download/${props.model}/${token}`} target="_blank" rel="noreferrer">
-                    <div className="bg-gray-200 hover:bg-gray-400 font-mono text-md font-light py-2 px-4 rounded-lg cursor-pointer">↓ Importar Modelo</div>
+                    <div className="bg-gray-200 hover:bg-gray-400 font-mono text-md font-light py-2 px-4 rounded-lg cursor-pointer flex flex-col items-center justify-center lg:flex-row lg:items-center lg:justify-between lg:gap-x-2">
+                        <p>↓</p>
+                        <p className="text-center">Importar Modelo</p>
+                    </div>
                 </a>
-                <label htmlFor="upload_csv" className="cursor-pointer bg-gray-200 hover:bg-gray-400 font-mono text-md font-light py-2 px-4 rounded-lg flex items-center justify-center">
+                <label htmlFor="upload_csv" className="cursor-pointer bg-gray-200 hover:bg-gray-400 font-mono text-md font-light py-2 px-4 rounded-lg flex flex-col items-center justify-center lg:flex-row lg:items-center lg:justify-center">
                     <Image 
                         src={csvLogo}
                         alt={'Logo CSV'}
@@ -83,37 +86,37 @@ export default function ExampleForm (props: any) {
                         width='50'
                         className=""
                     />
-                    Enviar Arquivo
+                    <p className="text-center">Enviar Arquivo</p>
                 </label>
                 <form onSubmit={onSubmitCsv}>
                     <input type="file" name="upload_csv" id="upload_csv" accept=".csv" onChange={handleChangeCsv} className="hidden"  />
                     <button className="bg-gray-200 hover:bg-gray-400 font-mono text-md font-light py-2 px-4 rounded-lg" type='submit'>↑ Exportar</button>
                 </form>
             </div>
-            <form onSubmit={onSubmitForm} className="ml-4 mt-8 flex flex-wrap gap-8">
-                <div className="flex items-center justify-center">
+            <form onSubmit={onSubmitForm} className="lg:ml-4 mt-8 flex flex-col items-start justify-start lg:flex-row lg:flex-wrap gap-8">
+                <div className="flex flex-col items-start justify-start lg:flex-row lg:items-center lg:justify-center w-full lg:w-fit px-4 lg:px-0">
                     <label htmlFor="first_name" className="font-mono text-md font-light">Primeiro Nome: </label>
-                    <input type="text" name="first_name" id="first_name" value={form.first_name} onChange={onchange} className='bg-gray-200 w-44 h-6 rounded-lg ml-4' required />
+                    <input type="text" name="first_name" id="first_name" value={form.first_name} onChange={onchange} className='bg-gray-200 w-full lg:w-44 h-6 rounded-lg lg:ml-4' required />
                 </div>
 
-                <div className="flex items-center justify-center">
+                <div className="flex flex-col items-start justify-start lg:flex-row lg:items-center lg:justify-center w-full lg:w-fit px-4 lg:px-0">
                     <label htmlFor="last_name" className="font-mono text-md font-light">Ultimo Nome: </label>
-                    <input type="text" name="last_name" id="last_name" value={form.last_name} onChange={onchange} className='bg-gray-200 w-44 h-6 rounded-lg ml-4' required />
+                    <input type="text" name="last_name" id="last_name" value={form.last_name} onChange={onchange} className='bg-gray-200 w-full lg:w-44 h-6 rounded-lg lg:ml-4' required />
                 </div>
 
-                <div className="flex items-center justify-center">
+                <div className="flex flex-col items-start justify-start lg:flex-row lg:items-center lg:justify-center w-full lg:w-fit px-4 lg:px-0">
                     <label htmlFor="phone" className="font-mono text-md font-light">Telefone: </label>
-                    <input type="tel" name="phone" id="phone" value={form.phone} onChange={onchange} className='bg-gray-200 w-44 h-6 rounded-lg ml-4' required />
+                    <input type="tel" name="phone" id="phone" value={form.phone} onChange={onchange} className='bg-gray-200 lg:w-44 h-6 rounded-lg lg:ml-4 w-full' required />
                 </div>
 
-                <div className="flex items-center justify-center w-full">
+                <div className="flex flex-col items-start justify-start lg:flex-row lg:items-center lg:justify-center w-full px-4 lg:px-0">
                     <label htmlFor="departament" className="font-mono text-md font-light">Departamento: </label>
-                    <input type="tel" name="departament" id="departament" value={form.departament} onChange={onchange} className='bg-gray-200 w-full h-6 rounded-lg ml-4' required />
+                    <input type="tel" name="departament" id="departament" value={form.departament} onChange={onchange} className='bg-gray-200 w-full h-6 rounded-lg lg:ml-4' required />
                 </div>
 
-                <div className="flex items-center justify-center">
+                <div className="flex flex-col items-start justify-start lg:flex-row lg:items-center lg:justify-center px-4 lg:px-0">
                     <label htmlFor="description" className="font-mono text-md font-light">Descrição: </label>
-                    <textarea name="description" id="description" value={form.description} onChange={onchange} className='bg-gray-200 rounded-lg ml-4' rows={4} cols={100} required />
+                    <textarea name="description" id="description" value={form.description} onChange={onchange} className='bg-gray-200 rounded-lg lg:ml-4 w-full lg:w-fit' rows={4} cols={100} required />
                 </div>
 
                 <div className="w-full flex items-center justify-center">
