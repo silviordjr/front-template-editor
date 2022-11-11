@@ -83,37 +83,37 @@ export default function Signup() {
             </Head>
             <main className="px-4 lg:px-0 max-w-screen-xl mx-auto my-10 min-h-screen flex flex-col items-center justify-start gap-8">
                 <h1 className='text-2xl font-mono antialiased font-semibold ml-4 mt-8'>Cadastar novo usuário</h1>
-                <form className='w-full grid grid-cols-2 gap-8 shadow-xl rounded-xl px-8 py-16 mt-16' onSubmit={onSubmitForm}>
-                    <div className="flex items-center justify-start w-full">
+                <form className='w-full flex flex-col items-start justify-start md:grid md:grid-cols-2 gap-8 shadow-xl rounded-xl px-8 py-16 mt-16' onSubmit={onSubmitForm}>
+                    <div className="flex flex-col items-start md:flex-row md:items-center justify-start w-full">
                         <label htmlFor="name" className="font-mono text-md font-light">Nome Completo: </label>
-                        <input type="text" name="name" id="name" value={form.name} onChange={onchange} className='bg-gray-200 w-2/3 h-8 rounded-lg ml-4' required />
+                        <input type="text" name="name" id="name" value={form.name} onChange={onchange} className='bg-gray-200 w-full mt-4 md:mt-0 md:w-2/3 h-12 md:h-8 rounded-lg md:ml-4' required />
                     </div>
 
-                    <div className="flex items-center justify-start w-full">
+                    <div className="flex flex-col items-start md:flex-row md:items-center justify-start w-full">
                         <label htmlFor="email" className="font-mono text-md font-light">Email: </label>
-                        <input type="email" name="email" id="email" value={form.email} onChange={onchange} className='bg-gray-200 w-2/3 h-8 rounded-lg ml-4' required />
+                        <input type="email" name="email" id="email" value={form.email} onChange={onchange} className='bg-gray-200 w-full mt-4 md:mt-0 md:w-2/3 h-12 md:h-8 rounded-lg md:ml-4' required />
                     </div>
 
-                    <div className="flex items-center justify-start w-full">
+                    <div className="flex flex-col items-start md:flex-row md:items-center justify-start w-full">
                         <label htmlFor="registration" className="font-mono text-md font-light">Matrícula: </label>
-                        <input type="text" name="registration" id="registration" value={form.registration} onChange={onchange} className='bg-gray-200 w-2/3 h-8 rounded-lg ml-4' required />
+                        <input type="text" name="registration" id="registration" value={form.registration} onChange={onchange} className='bg-gray-200 w-full mt-4 md:mt-0 md:w-2/3 h-12 md:h-8 rounded-lg md:ml-4' required />
                     </div>
 
-                    <div className="flex items-center justify-start w-full">
+                    <div className="flex flex-col items-start md:flex-row md:items-center justify-start w-full">
                         <label htmlFor="departament" className="font-mono text-md font-light">Setor: </label>
-                        <input type="text" name="departament" id="departament" value={form.departament} onChange={onchange} className='bg-gray-200 w-2/3 h-8 rounded-lg ml-4' required />
+                        <input type="text" name="departament" id="departament" value={form.departament} onChange={onchange} className='bg-gray-200 w-full mt-4 md:mt-0 md:w-2/3 h-12 md:h-8 rounded-lg md:ml-4' required />
                     </div>
 
-                    <div className="flex items-center justify-start w-full">
+                    <div className="flex flex-col items-start md:flex-row md:items-center justify-start w-full">
                         <label htmlFor="password" className="font-mono text-md font-light">Senha: </label>
-                        <div className='bg-gray-200 w-2/3 h-8 rounded-lg ml-4 flex items-center justify-between'>
-                            <input type={passwordVisibility ? 'text' : 'password'} name="password" id="password" value={form.password} onChange={onchange} className='bg-gray-200 w-2/3 h-8 rounded-lg ml-4' required />
+                        <div className='bg-gray-200 w-full md:w-2/3 mt-4 md:mt-0 h-12 md:h-8 rounded-lg md:ml-4 flex items-center justify-between'>
+                            <input type={passwordVisibility ? 'text' : 'password'} name="password" id="password" value={form.password} onChange={onchange} className='bg-gray-200 w-full md:w-2/3 h-12 md:h-8 rounded-lg md:ml-4' required />
                             {renderVisibility()}
                         </div>
                     </div>
 
                     <div className="w-full flex items-center justify-center">
-                        <button className="bg-gray-200 hover:bg-gray-400 font-mono text-md font-light py-1 px-8 rounded-lg" type='submit'>Enviar</button>
+                        <button className="bg-gray-200 hover:bg-gray-400 font-mono text-md font-light w-full h-12 md:py-1 md:px-8 rounded-lg" type='submit'>Enviar</button>
                     </div>
                 </form>
                 {
