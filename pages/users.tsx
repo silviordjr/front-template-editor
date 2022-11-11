@@ -173,7 +173,7 @@ export default function Users () {
                     <input type="text" name="name" id="name" placeholder='Nome...' value={form.name} onChange={onchange} className='bg-gray-200 w-full md:w-44 h-6 rounded-lg mt-4 md:mt-0 md:ml-4' />
                 </form>
                 <div className='flex flex-col items-center justify-center w-full'>
-                    <div className='flex flex-wrap items-start justify-between gap-8 w-full'>
+                    <div className='flex flex-wrap items-start justify-center lg:justify-between gap-8 w-full'>
                         {users && renderUsers}
                     </div>
                     <div className='grid grid-cols-4 gap-4 mt-4'>
