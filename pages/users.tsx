@@ -168,9 +168,9 @@ export default function Users () {
                 <link rel="icon" href="/casal_favicon.png" />
             </Head>
             <main className="px-4 lg:px-0 max-w-screen-xl mx-auto my-10 flex flex-col items-start justify-start gap-8">
-                <form className='w-full flex items-center justify-center' onSubmit={onSubmitSearch}>
+                <form className='w-full flex flex-col items-start justify-start md:flex-row md:items-center md:justify-center' onSubmit={onSubmitSearch}>
                     <label htmlFor="name" className="font-mono text-md font-light">Busque por nome: </label>
-                    <input type="text" name="name" id="name" placeholder='Nome...' value={form.name} onChange={onchange} className='bg-gray-200 w-44 h-6 rounded-lg ml-4' />
+                    <input type="text" name="name" id="name" placeholder='Nome...' value={form.name} onChange={onchange} className='bg-gray-200 w-full md:w-44 h-6 rounded-lg mt-4 md:mt-0 md:ml-4' />
                 </form>
                 <div className='flex flex-col items-center justify-center w-full'>
                     <div className='flex flex-wrap items-start justify-between gap-8 w-full'>
